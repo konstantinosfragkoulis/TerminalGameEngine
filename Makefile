@@ -5,7 +5,7 @@ CFLAGS = -Wall -pipe
 OFLAGS = -c -I/usr/include
 LFLAGS = $(CFLAGS) -L/usr/lib/
 
-SRC_DIRS := ./src
+SRC_DIRS := ./engine
 
 SOURCES = $(shell find $(SRC_DIRS) -name '*.c')
 OBJECTS = $(SOURCES:.c=.o)
@@ -35,7 +35,7 @@ project: $(OBJECTS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	echo "rm -rf $(SRC_DIRS)/*.o game"
+	rm -rf $(SRC_DIRS)/*.o game
 
 rebuild: clean all
 
