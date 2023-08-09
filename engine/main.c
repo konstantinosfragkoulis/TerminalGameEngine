@@ -6,28 +6,29 @@
 
 int main() {
 
+    initAll();
+
+
     GameObject player;
 
-    // malloc to make it mutable
-    player.name = (char *)malloc(cstrlen("player") + 1); // +1 for the null terminator
-    strcpy(player.name, "player");
+    SetGameObjectName(&player, "Player");
+    
     player.x = termCols >> 1;
     player.y = termRows >> 1;
+    
+    /* Debug */
+    Print(player.name, player.x, player.y);
 
     SpriteRenderer playerRenderer;
     playerRenderer.color = 0;
-    playerRenderer.sprite = (char **)malloc(sizeof(char *) * 3);
-    // Copy content from playerSprite to playerRenderer.sprite
-    for (int i = 0; i < 3; i++) {
-        playerRenderer.sprite[i] = (char *)malloc(5 * sizeof(char));
-        memcpy(playerRenderer.sprite[i], playerSprite[i], 5);
-    }
-
     player.spriteRenderer = &playerRenderer;
 
-    initAll();
+    SetGameObjectSprite(&player, sizeof(playerSprite) / sizeof(playerSprite[0]), sizeof(playerSprite[0]) / sizeof(playerSprite[0][0]), playerSprite);
 
     DrawGameObject(&player);
+    
+
+    DrawFrame();
 
     char c;
     int cnt = 0;
