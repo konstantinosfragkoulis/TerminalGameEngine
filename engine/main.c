@@ -16,9 +16,6 @@ int main() {
     player.x = termCols >> 1;
     player.y = termRows >> 1;
     
-    /* Debug */
-    Print(player.name, player.x, player.y);
-
     SpriteRenderer playerRenderer;
     playerRenderer.color = 0;
     player.spriteRenderer = &playerRenderer;
@@ -31,17 +28,26 @@ int main() {
     DrawFrame();
 
     char c;
-    int cnt = 0;
     while(1) {
         c = GetInput();
 
         if(c == 'q') break;
         
         if(c != '\0') {
-            Print(&c, cnt, 0);
-            //printf("%c\n", c);
+
+            if(c == 'a') {
+                player.x--;
+            } else if(c == 'd') {
+                player.x++;
+            } else if(c == 'w') {
+                player.y--;
+            } else if(c == 's') {
+                player.y++;
+            }
+
+            DrawGameObject(&player);
+
             DrawFrame();
-            ++cnt;
         }
 
     
