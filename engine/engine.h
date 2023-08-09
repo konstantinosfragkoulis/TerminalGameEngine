@@ -11,6 +11,7 @@ typedef struct {
     int color;
     char **sprite;
     int rows, cols;
+    int layer;
     /* float opacity; */
 } SpriteRenderer;
 
