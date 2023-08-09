@@ -23,24 +23,30 @@ void initFrameBuffer() {
         fb[i] = (char *)malloc(ws.ws_row * sizeof(char));
     }
 
+    for(int i = 0; i < ws.ws_col; ++i) {
+        for(int j = 0; j < ws.ws_row; ++j) {
+            fb[i][j] = ' ';
+        }
+    }
+
 }
 
 /* ENHANCEMENT - Ability to write vertical text */
 /* Write text to the screen beginning at a specific point */
 void Print(const char *str, int x, int y) {
     int strLen = cstrlen(str);
-    const int cStrLen = strLen;
 
-    for(strLen; strLen > 0; --strLen) {
-
-        fb[x][y] = str[cStrLen-strLen];
-
-        ++x;
+    for(int i = 0; i < strLen; ++i) {
+        fb[x+i][y] = str[i];
     }
 }
 
 void DrawGameObject(GameObject* obj) {
-    //obj->spriteRenderer->sprite
+    for (int i = 0; i < obj->spriteRenderer->cols; i++) {
+        for (int j = 0; j < obj->spriteRenderer->rows; j++) {
+            fb[obj->x+i][obj->y+j] = obj->spriteRenderer->sprite[j][i];
+        }
+    }
 }
 
 void DrawFrame() {
