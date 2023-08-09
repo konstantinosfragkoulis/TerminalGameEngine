@@ -10,6 +10,7 @@ typedef int bool;
 typedef struct {
     int color;
     char **sprite;
+    int rows, cols;
     /* float opacity; */
 } SpriteRenderer;
 
@@ -43,6 +44,8 @@ extern char GetInput();
 
 /* utils.c */
 extern int cstrlen(const char *str);
+extern void SetGameObjectName(GameObject *obj, const char *name);
+extern void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols]);
 
 /* graphics.c */
 extern void initFrameBuffer();
