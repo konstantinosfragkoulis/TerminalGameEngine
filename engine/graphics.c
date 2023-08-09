@@ -44,7 +44,9 @@ void Print(const char *str, int x, int y) {
 void DrawGameObject(GameObject* obj) {
     for (int i = 0; i < obj->spriteRenderer->cols; i++) {
         for (int j = 0; j < obj->spriteRenderer->rows; j++) {
-            fb[obj->x+i][obj->y+j] = obj->spriteRenderer->sprite[j][i];
+            if(obj->x+i >= 0 && obj->x+i <= termCols-obj->spriteRenderer->cols && obj->y+j >= 0 && obj->y+j <= termRows-obj->spriteRenderer->rows) {
+                fb[obj->x+i][obj->y+j] = obj->spriteRenderer->sprite[j][i];
+            }
         }
     }
 }
@@ -53,6 +55,7 @@ void DrawFrame() {
     for(int i = 0; i < termRows; ++i) {
         for(int j = 0; j < termCols; ++j) {
             printf("%c", fb[j][i]);
+            fb[j][i] = ' ';
         }
         printf("\n");
     }
