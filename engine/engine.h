@@ -59,6 +59,8 @@ extern int cstrlen(const char *str);
 extern void SetGameObjectName(GameObject *obj, const char *name);
 extern void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols], int layer);
 extern GameObject* NewGameObject(GameObject *obj, const char* name, const int x, const int y);
+extern SpriteRenderer* NewSpriteRenderer(SpriteRenderer* renderer, const int color, int rows, int cols, char (*arr)[cols], int layer);
+extern void AddSpriteRendererToGameObject(GameObject* obj, SpriteRenderer* renderer);
 
 /* graphics.c */
 extern void initFrameBuffer();
