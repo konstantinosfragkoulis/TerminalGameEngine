@@ -41,10 +41,12 @@ void Print(const char *str, int x, int y) {
     }
 }
 
+/* All GameObjects with a SpriteRenderer that used SetGameObjectSprite() are automatically drawn. */
+/* ***Use only if you know what you are doing** */
 void DrawGameObject(GameObject* obj) {
     for (int i = 0; i < obj->spriteRenderer->cols; i++) {
         for (int j = 0; j < obj->spriteRenderer->rows; j++) {
-            if(obj->x+i >= 0 && obj->x+i <= termCols-obj->spriteRenderer->cols && obj->y+j >= 0 && obj->y+j <= termRows-obj->spriteRenderer->rows) {
+            if(obj->x+i >= 0 && obj->x+i <= termCols-obj->spriteRenderer->cols && obj->y+j >= 0 && obj->y+j <= termRows-obj->spriteRenderer->rows && obj->spriteRenderer->sprite[j][i] != ' ') {
                 fb[obj->x+i][obj->y+j] = obj->spriteRenderer->sprite[j][i];
             }
         }
@@ -52,6 +54,18 @@ void DrawGameObject(GameObject* obj) {
 }
 
 void DrawFrame() {
+
+    /* Automatically draw all GameObjects with a SpriteRenderer */
+    for(int i = 0; i < MAX_LAYERS; ++i) {
+        //for(int j = 0; j < sizeof(gameObjectsToDraw[i])/sizeof(GameObject *); ++j) {
+        //    DrawGameObject(gameObjectsToDraw[i][j]);
+        //}
+        GameObject **objectsInLayer = gameObjectsToDraw[i];
+        for (int j = 0; objectsInLayer[j] != NULL; ++j) {
+            DrawGameObject(objectsInLayer[j]);
+        }
+    }
+
     for(int i = 0; i < termRows; ++i) {
         for(int j = 0; j < termCols; ++j) {
             printf("%c", fb[j][i]);
