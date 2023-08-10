@@ -21,7 +21,7 @@ int main() {
     playerRenderer.color = (int) 0xFFFFFF; // white
     player.spriteRenderer = &playerRenderer;
 
-    SetGameObjectSprite(&player, sizeof(playerSprite) / sizeof(playerSprite[0]), sizeof(playerSprite[0]) / sizeof(playerSprite[0][0]), playerSprite, 1);
+    SetGameObjectSprite(&player, ARR_ROWS(playerSprite), ARR_COLS(playerSprite), playerSprite, 1);
 
 
 
@@ -36,7 +36,7 @@ int main() {
     enemyRenderer.color = (int) 0xFF0000; // red
     enemy.spriteRenderer = &enemyRenderer;
 
-    SetGameObjectSprite(&enemy, sizeof(enemySprite) / sizeof(enemySprite[0]), sizeof(enemySprite[0]) / sizeof(enemySprite[0][0]), enemySprite, 0);
+    SetGameObjectSprite(&enemy, ARR_ROWS(enemySprite), ARR_COLS(enemySprite), enemySprite, 0);
     
 
 
@@ -44,14 +44,29 @@ int main() {
     GameObject enemy2;
     SetGameObjectName(&enemy2, "Enemy2");
 
-    enemy2.x = 10;
+    enemy2.x = 96;
     enemy2.y = 10;
 
     SpriteRenderer enemyRenderer2;
     enemyRenderer2.color = (int) 0xFF0000; // red
     enemy2.spriteRenderer = &enemyRenderer2;
 
-    SetGameObjectSprite(&enemy2, sizeof(enemySprite) / sizeof(enemySprite[0]), sizeof(enemySprite[0]) / sizeof(enemySprite[0][0]), enemySprite, 0);
+    SetGameObjectSprite(&enemy2, ARR_ROWS(enemySprite), ARR_COLS(enemySprite), enemySprite, 0);
+
+
+
+    /* Enemy3 */
+    GameObject enemy3;
+    SetGameObjectName(&enemy3, "Enemy3");
+
+    enemy3.x = 90;
+    enemy3.y = 10;
+
+    SpriteRenderer enemyRenderer3;
+    enemyRenderer3.color = (int) 0xFF0000; // red
+    enemy3.spriteRenderer = &enemyRenderer3;
+
+    SetGameObjectSprite(&enemy3, ARR_ROWS(enemySprite), ARR_COLS(enemySprite), enemySprite, 0);
 
 
 
