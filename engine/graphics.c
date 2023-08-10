@@ -6,6 +6,7 @@
 #include "engine.h"
 
 char **fb;
+int **colors;
 
 int termRows;
 int termCols;
@@ -17,15 +18,16 @@ void initFrameBuffer() {
     termRows = ws.ws_row-1;
     termCols = ws.ws_col;
 
-    /* Allocate memory for the Frame Buffer */
+    /* Allocate memory and Initialize the Frame Buffer and ColorBuffer */
     fb = (char **)malloc(ws.ws_col * sizeof(char *));
+    colors = (int **)malloc(ws.ws_col * sizeof(int *));
     for (int i = 0; i < ws.ws_col; ++i) {
         fb[i] = (char *)malloc(ws.ws_row * sizeof(char));
-    }
+        colors[i] = (int *)malloc(ws.ws_row * sizeof(int));
 
-    for(int i = 0; i < ws.ws_col; ++i) {
         for(int j = 0; j < ws.ws_row; ++j) {
             fb[i][j] = ' ';
+            colors[i][j] = (int) 0xFFFFFF; // white
         }
     }
 
@@ -48,6 +50,7 @@ void DrawGameObject(GameObject* obj) {
         for (int j = 0; j < obj->spriteRenderer->rows; j++) {
             if(obj->x+i >= 0 && obj->x+i <= termCols-obj->spriteRenderer->cols && obj->y+j >= 0 && obj->y+j <= termRows-obj->spriteRenderer->rows && obj->spriteRenderer->sprite[j][i] != ' ') {
                 fb[obj->x+i][obj->y+j] = obj->spriteRenderer->sprite[j][i];
+                colors[obj->x+i][obj->y+j] = obj->spriteRenderer->color;
             }
         }
     }
@@ -57,9 +60,6 @@ void DrawFrame() {
 
     /* Automatically draw all GameObjects with a SpriteRenderer */
     for(int i = 0; i < MAX_LAYERS; ++i) {
-        //for(int j = 0; j < sizeof(gameObjectsToDraw[i])/sizeof(GameObject *); ++j) {
-        //    DrawGameObject(gameObjectsToDraw[i][j]);
-        //}
         GameObject **objectsInLayer = gameObjectsToDraw[i];
         for (int j = 0; objectsInLayer[j] != NULL; ++j) {
             DrawGameObject(objectsInLayer[j]);
@@ -68,8 +68,17 @@ void DrawFrame() {
 
     for(int i = 0; i < termRows; ++i) {
         for(int j = 0; j < termCols; ++j) {
-            printf("%c", fb[j][i]);
+            if(colors[j][i] == (int)0xFF0000) { // red
+                printf("\033[31m%c\033[0m", fb[j][i]);
+            } else if(colors[j][i] == (int)0xFFFFFF) { // white
+                printf("\033[97m%c\033[0m", fb[j][i]);
+            } else if(colors[j][i] == (int)0x0000FF) { // blue
+                printf("\033[34m%c\033[0m", fb[j][i]);
+            }
+
+            /* Reset FrameBuffer and ColorBuffer */
             fb[j][i] = ' ';
+            colors[j][i] = (int) 0xFFFFFF; // white
         }
         printf("\n");
     }
