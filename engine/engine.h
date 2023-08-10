@@ -5,6 +5,8 @@ typedef int bool;
 #define true 1
 #define false 0
 
+#define NULL ((void *)0)
+
 /* Game Object */
 /* Sprite Renderer */
 typedef struct {
@@ -38,6 +40,11 @@ typedef struct {
 extern int termRows;
 extern int termCols;
 
+#define MAX_LAYERS 10
+
+/* All GameObjects with a SpriteRenderer. They will be automatically drawn. */
+extern GameObject **gameObjectsToDraw[MAX_LAYERS];
+
 /* inputManager.c */
 extern void enableRawMode();
 extern void disableRawMode();
@@ -46,7 +53,7 @@ extern char GetInput();
 /* utils.c */
 extern int cstrlen(const char *str);
 extern void SetGameObjectName(GameObject *obj, const char *name);
-extern void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols]);
+extern void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols], int layer);
 
 /* graphics.c */
 extern void initFrameBuffer();
