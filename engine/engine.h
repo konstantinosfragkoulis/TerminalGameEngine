@@ -7,6 +7,9 @@ typedef int bool;
 
 #define NULL ((void *)0)
 
+#define ARR_ROWS(arr) (sizeof(arr) / sizeof(arr[0]))
+#define ARR_COLS(arr) (sizeof(arr[0]) / sizeof(arr[0][0]))
+
 /* Game Object */
 /* Sprite Renderer */
 typedef struct {
