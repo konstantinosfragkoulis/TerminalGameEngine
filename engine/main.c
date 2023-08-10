@@ -9,6 +9,7 @@ int main() {
     initAll();
 
 
+    /* Player */
     GameObject player;
 
     SetGameObjectName(&player, "Player");
@@ -17,14 +18,29 @@ int main() {
     player.y = termRows >> 1;
     
     SpriteRenderer playerRenderer;
-    playerRenderer.color = 0;
+    playerRenderer.color = (int) 0xFFFFFF; // white
     player.spriteRenderer = &playerRenderer;
 
-    SetGameObjectSprite(&player, sizeof(playerSprite) / sizeof(playerSprite[0]), sizeof(playerSprite[0]) / sizeof(playerSprite[0][0]), playerSprite);
+    SetGameObjectSprite(&player, sizeof(playerSprite) / sizeof(playerSprite[0]), sizeof(playerSprite[0]) / sizeof(playerSprite[0][0]), playerSprite, 1);
 
-    DrawGameObject(&player);
+
+
+    /* Enemy */
+    GameObject enemy;
+    SetGameObjectName(&enemy, "Enemy");
+
+    enemy.x = 102;
+    enemy.y = 10;
+
+    SpriteRenderer enemyRenderer;
+    enemyRenderer.color = (int) 0xFF0000; // red
+    enemy.spriteRenderer = &enemyRenderer;
+
+    SetGameObjectSprite(&enemy, sizeof(enemySprite) / sizeof(enemySprite[0]), sizeof(enemySprite[0]) / sizeof(enemySprite[0][0]), enemySprite, 0);
     
 
+
+    /* Draw first frame */
     DrawFrame();
 
     char c;
@@ -44,8 +60,6 @@ int main() {
             } else if(c == 's') {
                 player.y++;
             }
-
-            DrawGameObject(&player);
 
             DrawFrame();
         }
