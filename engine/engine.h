@@ -47,6 +47,7 @@ extern int termCols;
 
 /* All GameObjects with a SpriteRenderer. They will be automatically drawn. */
 extern GameObject **gameObjectsToDraw[MAX_LAYERS];
+extern int layerElementCount[MAX_LAYERS];
 
 /* inputManager.c */
 extern void enableRawMode();
