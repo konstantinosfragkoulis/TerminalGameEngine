@@ -30,13 +30,13 @@ void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols],
     obj->spriteRenderer->layer = layer;
 
     if(gameObjectsToDraw[layer][0] == NULL) { // This layer is empty
-        gameObjectsToDraw[layer] = (GameObject **)malloc(sizeof(GameObject *) * 2); // Allocate memory for 1 GameObject
+        //gameObjectsToDraw[layer] = (GameObject **)malloc(sizeof(GameObject *)); // Allocate memory for 1 GameObject
         gameObjectsToDraw[layer][0] = obj;
-        gameObjectsToDraw[layer][1] = NULL;
+        layerElementCount[layer] = 1;
     } else {
-        const int newSize = sizeof(gameObjectsToDraw[layer]) + sizeof(GameObject *);
+        layerElementCount[layer]++;
+        const int newSize = (layerElementCount[layer] + 1) * sizeof(GameObject *);
         gameObjectsToDraw[layer] = (GameObject **)realloc(gameObjectsToDraw[layer], newSize); // Allocate more memory for 1 more GameObject
-        gameObjectsToDraw[layer][newSize / sizeof(GameObject *) - 1] = obj;
-        /*gameObjectsToDraw[layer][newSize / sizeof(GameObject *)] = NULL;*/
+        gameObjectsToDraw[layer][layerElementCount[layer] - 1] = obj;
     }
 }
