@@ -40,6 +40,21 @@ int main() {
     
 
 
+    /* Enemy2 */
+    GameObject enemy2;
+    SetGameObjectName(&enemy2, "Enemy2");
+
+    enemy2.x = 10;
+    enemy2.y = 10;
+
+    SpriteRenderer enemyRenderer2;
+    enemyRenderer2.color = (int) 0xFF0000; // red
+    enemy2.spriteRenderer = &enemyRenderer2;
+
+    SetGameObjectSprite(&enemy2, sizeof(enemySprite) / sizeof(enemySprite[0]), sizeof(enemySprite[0]) / sizeof(enemySprite[0][0]), enemySprite, 0);
+
+
+
     /* Draw first frame */
     DrawFrame();
 
