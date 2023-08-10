@@ -16,7 +16,7 @@ void SetGameObjectName(GameObject *obj, const char *name) {
     strcpy(obj->name, name);
 }
 
-void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols]) {
+void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols], int layer) {
     
     obj->spriteRenderer->sprite = (char **)malloc(sizeof(char *) * rows);
     for (int i = 0; i < rows; ++i) {
@@ -26,4 +26,17 @@ void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols])
 
     obj->spriteRenderer->rows = rows;
     obj->spriteRenderer->cols = cols;
+
+    obj->spriteRenderer->layer = layer;
+
+    if(gameObjectsToDraw[layer][0] == NULL) { // This layer is empty
+        gameObjectsToDraw[layer] = (GameObject **)malloc(sizeof(GameObject *) * 2); // Allocate memory for 1 GameObject
+        gameObjectsToDraw[layer][0] = obj;
+        gameObjectsToDraw[layer][1] = NULL;
+    } else {
+        const int newSize = sizeof(gameObjectsToDraw[layer]) + sizeof(GameObject *);
+        gameObjectsToDraw[layer] = (GameObject **)realloc(gameObjectsToDraw[layer], newSize); // Allocate more memory for 1 more GameObject
+        gameObjectsToDraw[layer][newSize / sizeof(GameObject *) - 2] = obj;
+        gameObjectsToDraw[layer][newSize / sizeof(GameObject *) - 1] = NULL;
+    }
 }
