@@ -10,13 +10,8 @@ int main() {
 
 
     /* Player */
-    GameObject player;
+    GameObject player = *(NewGameObject(&player, "Player", termCols >> 1, termRows >> 1));
 
-    SetGameObjectName(&player, "Player");
-    
-    player.x = termCols >> 1;
-    player.y = termRows >> 1;
-    
     SpriteRenderer playerRenderer;
     playerRenderer.color = (int) 0xFFFFFF; // white
     player.spriteRenderer = &playerRenderer;
@@ -26,11 +21,7 @@ int main() {
 
 
     /* Enemy */
-    GameObject enemy;
-    SetGameObjectName(&enemy, "Enemy");
-
-    enemy.x = 102;
-    enemy.y = 10;
+    GameObject enemy = *(NewGameObject(&enemy, "Enemy", 102, 10));
 
     SpriteRenderer enemyRenderer;
     enemyRenderer.color = (int) 0xFF0000; // red
@@ -41,11 +32,7 @@ int main() {
 
 
     /* Enemy2 */
-    GameObject enemy2;
-    SetGameObjectName(&enemy2, "Enemy2");
-
-    enemy2.x = 96;
-    enemy2.y = 10;
+    GameObject enemy2 = *(NewGameObject(&enemy2, "Enemy2", 96, 10));
 
     SpriteRenderer enemyRenderer2;
     enemyRenderer2.color = (int) 0xFF0000; // red
@@ -56,11 +43,7 @@ int main() {
 
 
     /* Enemy3 */
-    GameObject enemy3;
-    SetGameObjectName(&enemy3, "Enemy3");
-
-    enemy3.x = 90;
-    enemy3.y = 10;
+    GameObject enemy3 = *(NewGameObject(&enemy3, "Enemy3", 90, 10));
 
     SpriteRenderer enemyRenderer3;
     enemyRenderer3.color = (int) 0xFF0000; // red
