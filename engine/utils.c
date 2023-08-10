@@ -1,5 +1,5 @@
-#include <stdlib.h> // malloc
-#include <string.h> // memcpy strcpy
+#include <malloc.h>
+#include <memory.h>
 
 #include "engine.h"
 
@@ -12,6 +12,7 @@ int cstrlen(const char *str) {
 }
 
 void SetGameObjectName(GameObject *obj, const char *name) {
+    free(obj->name);
     obj->name = (char *)malloc(cstrlen(name) + 1);
     strcpy(obj->name, name);
 }
@@ -30,7 +31,6 @@ void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols],
     obj->spriteRenderer->layer = layer;
 
     if(gameObjectsToDraw[layer][0] == NULL) { // This layer is empty
-        //gameObjectsToDraw[layer] = (GameObject **)malloc(sizeof(GameObject *)); // Allocate memory for 1 GameObject
         gameObjectsToDraw[layer][0] = obj;
         layerElementCount[layer] = 1;
     } else {
@@ -39,4 +39,15 @@ void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols],
         gameObjectsToDraw[layer] = (GameObject **)realloc(gameObjectsToDraw[layer], newSize); // Allocate more memory for 1 more GameObject
         gameObjectsToDraw[layer][layerElementCount[layer] - 1] = obj;
     }
+}
+
+GameObject* NewGameObject(GameObject *obj, const char* name, const int x, const int y) {
+
+    obj->name = NULL;
+    SetGameObjectName(obj, name);
+
+    obj->x = x;
+    obj->y = y;
+
+    return obj;
 }
