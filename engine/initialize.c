@@ -3,6 +3,7 @@
 #include "engine.h"
 
 GameObject **gameObjectsToDraw[MAX_LAYERS];
+int layerElementCount[MAX_LAYERS];
 
 void initAll() {
 
@@ -13,6 +14,7 @@ void initAll() {
     for(int i = 0; i < MAX_LAYERS; ++i) {
         gameObjectsToDraw[i] = (GameObject **)malloc(sizeof(GameObject *));
         gameObjectsToDraw[i][0] = NULL;
+        layerElementCount[i] = 0;
     }
 
 

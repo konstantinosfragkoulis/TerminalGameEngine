@@ -37,6 +37,6 @@ void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols],
         const int newSize = sizeof(gameObjectsToDraw[layer]) + sizeof(GameObject *);
         gameObjectsToDraw[layer] = (GameObject **)realloc(gameObjectsToDraw[layer], newSize); // Allocate more memory for 1 more GameObject
         gameObjectsToDraw[layer][newSize / sizeof(GameObject *) - 1] = obj;
-        gameObjectsToDraw[layer][newSize / sizeof(GameObject *)] = NULL;
+        /*gameObjectsToDraw[layer][newSize / sizeof(GameObject *)] = NULL;*/
     }
 }
