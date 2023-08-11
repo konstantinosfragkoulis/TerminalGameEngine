@@ -43,7 +43,9 @@ void SetGameObjectSprite(GameObject *obj, int rows, int cols, char (*arr)[cols],
     }
 }
 
-GameObject* NewGameObject(GameObject *obj, const char* name, const int x, const int y) {
+GameObject* NewGameObject(const char* name, const int x, const int y) {
+
+    GameObject *obj = (GameObject*)malloc(sizeof(GameObject));
 
     obj->name = NULL;
     SetGameObjectName(obj, name);
@@ -54,7 +56,9 @@ GameObject* NewGameObject(GameObject *obj, const char* name, const int x, const 
     return obj;
 }
 
-SpriteRenderer* NewSpriteRenderer(SpriteRenderer* renderer, const int color, int rows, int cols, char (*arr)[cols], int layer) {
+SpriteRenderer* NewSpriteRenderer(const int color, int rows, int cols, char (*arr)[cols], int layer) {
+
+    SpriteRenderer* renderer = (SpriteRenderer*)malloc(sizeof(SpriteRenderer));
 
     renderer->sprite = (char **)malloc(sizeof(char *) * rows);
     for (int i = 0; i < rows; ++i) {
