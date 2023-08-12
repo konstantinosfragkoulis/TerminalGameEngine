@@ -1,12 +1,7 @@
 #include <malloc.h>
-#include <string.h> // strcpy memcpy
-#include <unistd.h>
 
 #include "engine.h"
 #include "../assets.h"
-
-#define IMmidp (__INT_MAX__ >> 1)
-#define IMmidn (-__INT_MAX__ >> 1)
 
 int main() {
 
