@@ -60,9 +60,8 @@ void DrawFrame() {
 
     /* Automatically draw all GameObjects with a SpriteRenderer */
     for(int i = 0; i < MAX_LAYERS; ++i) {
-        GameObject **objectsInLayer = gameObjectsToDraw[i];
-        for (int j = 0; objectsInLayer[j] != NULL; ++j) {
-            DrawGameObject(objectsInLayer[j]);
+        for (int j = 0; gameObjectsToDraw[i][j] != NULL; ++j) {
+            DrawGameObject(gameObjectsToDraw[i][j]);
         }
     }
 
